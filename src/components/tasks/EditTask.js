@@ -3,6 +3,7 @@ import { updateTask } from "../../actions/task";
 import TaskContext from "../../hooks/TaskContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil} from "@fortawesome/free-solid-svg-icons";
+import { ToastError, ToastSuccess } from "../common/Toaster";
 import TaskModal from "./TaskModal";
 
 const EditTask = ({id, task}) => {
@@ -19,7 +20,10 @@ const EditTask = ({id, task}) => {
 				const taskObj = Object.values(task)[0]
 				newTasks[taskId] = taskObj;
         setTasks(newTasks);
-      } 
+        ToastSuccess("Task is updated successfully");
+      } else{
+        ToastError("Something went wrong!");
+      }
 			handleClose();
     });
   };

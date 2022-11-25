@@ -1,15 +1,26 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 
 const TaskModal = ({title, name, buttonText, show, handleClose, onSubmit}) => {
   const nameRef = useRef();
+  const [error, setError] = useState();
 
   const handleSave = () => {
     const data = { name: nameRef.current.value };
-    onSubmit(data);
+    if(nameRef.current.value === ''){
+      setError({name: "can't be blank"})
+    }else{
+      onSubmit(data);
+    }
   };
+
+  const handleError = () => {
+    if(error && error.name && nameRef.current.value != ''){
+      setError(null)
+    }
+  }
 
   return (
     <>
@@ -26,6 +37,8 @@ const TaskModal = ({title, name, buttonText, show, handleClose, onSubmit}) => {
                 autoFocus
                 ref={nameRef}
                 defaultValue={name}
+                isInvalid={error && error.name}
+                onKeyDown={handleError}
               />
             </Form.Group>
           </Form>

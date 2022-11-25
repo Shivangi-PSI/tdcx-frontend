@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { loginUser } from "../actions/auth";
+import { ToastError, ToastSuccess } from "./common/Toaster";
 import UserContext from "../hooks/UserContext";
 
 const Login = () => {
@@ -19,6 +20,9 @@ const Login = () => {
       if (user) {
         userCtx.setUser({ name: user.name });
         navigate("/dashboard");
+        ToastSuccess("Login successfully");
+      } else{
+        ToastError("Something went wrong!");
       }
     });
   };
@@ -35,9 +39,10 @@ const Login = () => {
       }}
     >
       <Form onSubmit={loginHandler} style={{padding: '20px', border: 'solid 1px #dddddd', borderRadius: '10px'}}>
+        <h5>Login</h5>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control type="text" placeholder="Enter email" ref={emailRef} />
+          <Form.Label>Username</Form.Label>
+          <Form.Control type="text" placeholder="Enter username" ref={emailRef} />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">

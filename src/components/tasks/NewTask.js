@@ -2,6 +2,7 @@ import React, { useContext, useRef, useState } from "react";
 import Button from "react-bootstrap/Button";
 import { createTask } from "../../actions/task";
 import TaskContext from "../../hooks/TaskContext";
+import { ToastError, ToastSuccess } from "../common/Toaster";
 import TaskModal from "./TaskModal";
 
 const NewTask = () => {
@@ -14,7 +15,10 @@ const NewTask = () => {
     createTask(data, (task, msg) => {
       if (task) {
         setTasks( {...tasks, ...task});
-      } 
+        ToastSuccess("Task is created successfully");
+      } else{
+        ToastError("Something went wrong!");
+      }
 			handleClose();
     });
   };

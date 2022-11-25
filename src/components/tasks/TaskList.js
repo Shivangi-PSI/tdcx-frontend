@@ -4,6 +4,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import EditTask from "./EditTask";
 import { deleteTask, updateTask } from "../../actions/task";
 import TaskContext from "../../hooks/TaskContext";
+import { ToastError, ToastSuccess } from "../common/Toaster";
 import { useContext, useRef } from "react";
 
 const Task = ({ task, taskId }) => {
@@ -16,7 +17,9 @@ const Task = ({ task, taskId }) => {
         const newTasks = { ...tasks };
         delete newTasks[taskId];
         setTasks(newTasks);
-      } else {
+        ToastSuccess("Task is deleted successfully");
+      } else{
+        ToastError("Something went wrong!");
       }
     });
   };
@@ -46,6 +49,7 @@ const Task = ({ task, taskId }) => {
   );
 };
 
+
 const TaskList = ({ tasks }) => {
   return (
     <Container style={{padding: '2rem', background: 'whitesmoke', border: 'solid 1px whitesmoke', borderRadius: '10px'}}>
@@ -55,6 +59,7 @@ const TaskList = ({ tasks }) => {
             <Task key={taskId} task={task} taskId={taskId} />
           ))}
       </Form>
+      {!(tasks && Object.keys(tasks).length > 0) && <p>No task available</p>}
     </Container>
   );
 };
