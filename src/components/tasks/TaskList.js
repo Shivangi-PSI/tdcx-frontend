@@ -34,13 +34,13 @@ const Task = ({ task, taskId }) => {
     });
   }
   return (
-    <Stack style={{ alignItems: "normal" }} direction="horizontal">
-      <div>
+    <Stack style={{ alignItems: "normal", padding: "10px 0", borderBottom: "solid 1px #dddddd" }} direction="horizontal">
+      
         <Form.Check type="checkbox" ref={completeRef} defaultChecked={task.isCompleted} onClick={handleCheckbox}/>
-        <span style={{ textDecoration: task.isCompleted ? 'line-through' : 'none' }}>{task.name}</span>
-      </div>
+        <span style={{ textDecoration: task.isCompleted ? 'line-through' : 'none', marginLeft: '10px' }}>{task.name}</span>
+      
       <EditTask id={taskId} task={task} />
-      <div className="vr" />
+      <div className="vr" style={{margin: '0 10px'}} />
       <FontAwesomeIcon icon={faTrash} onClick={taskDeleteHandler} />
     </Stack>
   );
@@ -48,7 +48,7 @@ const Task = ({ task, taskId }) => {
 
 const TaskList = ({ tasks }) => {
   return (
-    <Container style={{ padding: "2rem" }}>
+    <Container style={{padding: '2rem', background: 'whitesmoke', border: 'solid 1px whitesmoke', borderRadius: '10px'}}>
       <Form>
         {tasks &&
           Object.entries(tasks).map(([taskId, task]) => (

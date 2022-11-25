@@ -1,5 +1,4 @@
 import { Route, Routes, useNavigate } from "react-router-dom";
-import Header from "./components/common/Header";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
@@ -14,9 +13,11 @@ const App = () => {
   const navigator = useNavigate();
 
   useEffect(() => {
-    fetchUser((user,msg) => {
-      setUser(user)
-    })
+    if(localStorage.getItem('token')){
+      fetchUser((user,msg) => {
+        setUser(user)
+      })
+    }
   },[])
 
   const signOutHandler = () => {
