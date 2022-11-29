@@ -14,52 +14,80 @@ const Task = ({ task, taskId }) => {
   const taskDeleteHandler = () => {
     deleteTask(taskId, (res, msg) => {
       if (res) {
-        const newTasks = { ...tasks };
-        delete newTasks[taskId];
+        const newTasks = [...tasks];
+        const taskIndex = newTasks.findIndex(t => t.id === taskId);
+        if (taskIndex > -1) { 
+          newTasks.splice(taskIndex, 1); 
+        }
         setTasks(newTasks);
         ToastSuccess("Task is deleted successfully");
-      } else{
+      } else {
         ToastError("Something went wrong!");
       }
     });
   };
 
   const handleCheckbox = () => {
-    const data = {isCompleted: completeRef.current.checked}
-    updateTask(data,taskId, (task, msg) => {
+    const data = { isCompleted: completeRef.current.checked };
+    updateTask(data, taskId, (task, msg) => {
       if (task) {
-				const newTasks = {...tasks}
-				const taskId = Object.keys(task)[0]
-				const taskObj = Object.values(task)[0]
-				newTasks[taskId] = taskObj;
+        const newTasks = [...tasks]
+        const taskIndex = newTasks.findIndex(t => t.id === task.id);
+				newTasks[taskIndex] = task;
         setTasks(newTasks);
-      } 
+      }
     });
-  }
+  };
   return (
-    <Stack style={{ alignItems: "normal", padding: "10px 0", borderBottom: "solid 1px #dddddd" }} direction="horizontal">
-      
-        <Form.Check type="checkbox" ref={completeRef} defaultChecked={task.isCompleted} onClick={handleCheckbox}/>
-        <span style={{ textDecoration: task.isCompleted ? 'line-through' : 'none', marginLeft: '10px' }}>{task.name}</span>
-      
+    <Stack
+      style={{
+        alignItems: "normal",
+        padding: "10px 0",
+        borderBottom: "solid 1px #dddddd",
+      }}
+      direction="horizontal"
+    >
+      <Form.Check
+        type="checkbox"
+        ref={completeRef}
+        defaultChecked={task.isCompleted}
+        onClick={handleCheckbox}
+      />
+      <span
+        style={{
+          textDecoration: task.isCompleted ? "line-through" : "none",
+          marginLeft: "10px",
+        }}
+      >
+        {task.name}
+      </span>
+
       <EditTask id={taskId} task={task} />
-      <div className="vr" style={{margin: '0 10px'}} />
+      <div className="vr" style={{ margin: "0 10px" }} />
       <FontAwesomeIcon icon={faTrash} onClick={taskDeleteHandler} />
     </Stack>
   );
 };
 
-
 const TaskList = ({ tasks }) => {
   return (
-    <Container style={{padding: '2rem', background: 'whitesmoke', border: 'solid 1px whitesmoke', borderRadius: '10px'}}>
+    <Container
+      style={{
+        padding: "2rem",
+        background: "whitesmoke",
+        border: "solid 1px whitesmoke",
+        borderRadius: "10px",
+      }}
+    >
       <Form>
-        {tasks &&
-          Object.entries(tasks).map(([taskId, task]) => (
-            <Task key={taskId} task={task} taskId={taskId} />
-          ))}
+        {tasks.length ? (
+          tasks.map((task) => (
+            <Task key={task.id} task={task} taskId={task.id} />
+          ))
+        ) : (
+          <p>No task available</p>
+        )}
       </Form>
-      {!(tasks && Object.keys(tasks).length > 0) && <p>No task available</p>}
     </Container>
   );
 };

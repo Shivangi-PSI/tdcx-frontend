@@ -10,7 +10,8 @@ export const loginUser = async (data, callback) => {
     localStorage.setItem("token", response.data.user.token);
     callback(response.data.user, response.data.msg);
   } catch (error) {
-    callback(null, error.message);
+    const msg = error.response ? error.response.data.error : error.message;
+    callback(null, msg);
   }
 };
 
@@ -22,6 +23,7 @@ export const fetchUser = async (callback) => {
     });
     callback(response.data.user);
   } catch (error) {
-    callback(null, error.message);
+    const msg = error.response ? error.response.data.error : error.message;
+    callback(null, msg);
   }
 };

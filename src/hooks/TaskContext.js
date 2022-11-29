@@ -1,7 +1,7 @@
 import { createContext, useReducer } from "react";
 
 const initialState = {
-    tasks: null,
+    tasks: [],
   setTask: (task) => {},
 };
 

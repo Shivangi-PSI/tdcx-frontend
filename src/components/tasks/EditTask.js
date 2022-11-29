@@ -15,10 +15,9 @@ const EditTask = ({id, task}) => {
   const handleSave = (data) => {
     updateTask(data,id, (task, msg) => {
       if (task) {
-				const newTasks = {...tasks}
-				const taskId = Object.keys(task)[0]
-				const taskObj = Object.values(task)[0]
-				newTasks[taskId] = taskObj;
+				const newTasks = [...tasks]
+        const taskIndex = newTasks.findIndex(t => t.id === task.id);
+				newTasks[taskIndex] = task;
         setTasks(newTasks);
         ToastSuccess("Task is updated successfully");
       } else{

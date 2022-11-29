@@ -8,17 +8,18 @@ import { useContext, useEffect } from "react";
 import { fetchUser } from "./actions/auth";
 import UserContext from "./hooks/UserContext";
 import AuthVerify from "./utils/auth-verify";
+import Toaster from "./components/common/Toaster";
 const App = () => {
-	const {setUser, user} = useContext(UserContext);
+  const { setUser, user } = useContext(UserContext);
   const navigator = useNavigate();
 
   useEffect(() => {
-    if(localStorage.getItem('token')){
-      fetchUser((user,msg) => {
-        setUser(user)
-      })
+    if (localStorage.getItem("token")) {
+      fetchUser((user, msg) => {
+        setUser(user);
+      });
     }
-  },[])
+  }, []);
 
   const signOutHandler = () => {
     localStorage.clear();
@@ -33,11 +34,12 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route exact path="/" element={<ProtectedRoutes />}>
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="*" element={<PageNotFound/>} />
+            <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>
+        <AuthVerify logOut={signOutHandler} />
       </div>
-      <AuthVerify logOut={signOutHandler} />
+      <Toaster/>
     </>
   );
 };

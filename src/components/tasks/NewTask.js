@@ -14,7 +14,7 @@ const NewTask = () => {
   const handleSave = (data) => {
     createTask(data, (task, msg) => {
       if (task) {
-        setTasks( {...tasks, ...task});
+        setTasks( [task, ...tasks]);
         ToastSuccess("Task is created successfully");
       } else{
         ToastError("Something went wrong!");
@@ -22,7 +22,6 @@ const NewTask = () => {
 			handleClose();
     });
   };
-
   return (
     <>
       <Button variant="primary" onClick={handleShow}>

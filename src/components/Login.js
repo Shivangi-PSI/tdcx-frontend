@@ -19,10 +19,10 @@ const Login = () => {
     loginUser(data, (user, msg) => {
       if (user) {
         userCtx.setUser({ name: user.name });
-        navigate("/dashboard");
         ToastSuccess("Login successfully");
+        navigate("/dashboard");
       } else{
-        ToastError("Something went wrong!");
+        ToastError(msg);
       }
     });
   };
