@@ -16,12 +16,6 @@
   transition: opacity 300ms, transform 300ms;
 }
 
-/* .card-text .canvas_chart {
-  height: 100px;
-  width: 100px;
-  margin-block: 0px;
-} */
-
 .header {
   margin-bottom: 20px;
   background-color: #ffffff;

@@ -38,7 +38,7 @@ const Login = () => {
         justifyContent: "center",
       }}
     >
-      <Form onSubmit={loginHandler} style={{padding: '20px', border: 'solid 1px #dddddd', borderRadius: '10px'}}>
+      <Form onSubmit={loginHandler} style={{padding: '20px', border: 'solid 1px #dddddd', borderRadius: '10px', background: 'white'}}>
         <h5>Login</h5>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Username</Form.Label>
@@ -49,7 +49,7 @@ const Login = () => {
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" placeholder="Password" ref={pwdRef} />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" style={{width: '100%'}}>
           Login
         </Button>
       </Form>

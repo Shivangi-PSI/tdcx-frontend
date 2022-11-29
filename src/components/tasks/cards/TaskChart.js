@@ -1,45 +1,34 @@
-import { useContext, useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
-import TaskContext from "../../../hooks/TaskContext";
-import { PieChart } from "react-minimal-pie-chart";
-import CanvasJSReact from "./canvasjs.react";
-var CanvasJS = CanvasJSReact.CanvasJS;
-var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Pie } from "react-chartjs-2";
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 const TaskChart = ({ completed, total }) => {
-  const options = {
-    data: [
+  const data = {
+    labels: ["Completed Task", "Incompleted Task"],
+    datasets: [
       {
-        type: "pie",
-        startAngle: 75,
-        toolTipContent: "<b>{label}</b>: {y}%",
-        // showInLegend: "true",
-        legendText: "{label}",
-        indexLabelFontSize: 8,
-        indexLabel: "{label} - {y}%",
-        dataPoints: [
-          { y: Math.round((completed / total) * 100), label: "Completed" },
-          {
-            y: Math.round(((total - completed) / total) * 100),
-            label: "Incompleted",
-          },
-        ],
+        label: "# Count",
+        data: [completed, total - completed],
+        backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(54, 162, 235, 0.2)"],
+        borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
+        borderWidth: 1,
       },
     ],
-    responsive: true,
+  };
+
+  const options = {
+    maintainAspectRatio: false,
+    responsive: true, 
   };
 
   return (
     <Card className="task-card">
       <Card.Body>
-        {/* <Card.Title>LatestTask</Card.Title> */}
-        {/* <Card.Text> */}
-        <div style={{ height: "100px", width: "200px" }}>
-          {/* <CanvasJSChart
-            options={options}
-          /> */}
+        <div >
+          <Pie data={data} options={options}  height={'115px'} />
         </div>
-        {/* </Card.Text> */}
       </Card.Body>
     </Card>
   );

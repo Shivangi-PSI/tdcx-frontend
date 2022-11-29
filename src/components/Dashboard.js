@@ -1,19 +1,16 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import InputGroup from "react-bootstrap/InputGroup";
-import TaskContext from "../hooks/TaskContext";
-import TaskList from "./tasks/TaskList";
+import { Form, Button, InputGroup, Container } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { getAllTasks, searchTask } from "../actions/task";
+import TaskContext from "../hooks/TaskContext";
+import TaskList from "./tasks/TaskList";
 import NewTask from "./tasks/NewTask";
 import Header from "./common/Header";
-import { Col, Container, Row } from "react-bootstrap";
 import CompletedTask from "./tasks/cards/CompletedTask";
 import TaskChart from "./tasks/cards/TaskChart";
 import LatestTask from "./tasks/cards/LatestTask";
-import './Dashboard.scss';
+import "./Dashboard.scss";
 
 const Dashboard = () => {
   const { tasks, setTasks } = useContext(TaskContext);
@@ -57,14 +54,19 @@ const Dashboard = () => {
       <>
         <Header />
         <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            flexDirection: "column",
-          }}
+          className="no_task"
         >
-          <p>You have no Task</p>
-          <NewTask />
+          <div
+            style={{
+              padding: "20px",
+              border: "solid 1px #dddddd",
+              borderRadius: "10px",
+              background: "white",
+            }}
+          >
+            <p>You have no Task</p>
+            <NewTask />
+          </div>
         </div>
       </>
     );
@@ -74,44 +76,36 @@ const Dashboard = () => {
     <>
       <Header />
       {tasks && (
-        <Container fluid style={{ padding: "0.5rem 6rem" }}>
-          <Row>
-            <Col xs={4} md={4}>
-              <CompletedTask
-                completed={completedTaskCount}
-                total={tasks.length}
-              />
-            </Col>
-            <Col xs={4} md={4}>
-              <LatestTask tasks={tasks.slice(0, 3)} />
-            </Col>
-            <Col xs={4} md={4}>
-              <TaskChart
-                completed={completedTaskCount}
-                total={tasks.length}
-                data={[
-                  {
-                    type: "Completed",
-                    value: parseInt(completedTaskCount),
-                    color: "#E38627",
-                  },
-                  {
-                    type: "Incompleted",
-                    value: tasks.length,
-                    color: "#C13C37",
-                  },
-                ]}
-              />
-            </Col>
-          </Row>
-          <Row className="container-row">
-            <Col xs={6} md={5}>
-              <h3 className="task-heading" style={{ fontSize: "20px" }}>
-                Tasks
-              </h3>
-            </Col>
-            <Col xs={6} md={4}>
-              <InputGroup className="mb-3">
+        <Container fluid>
+          <div className="cards_container">
+            <CompletedTask
+              completed={completedTaskCount}
+              total={tasks.length}
+            />
+            <LatestTask tasks={tasks.slice(0, 3)} />
+            <TaskChart
+              completed={completedTaskCount}
+              total={tasks.length}
+              data={[
+                {
+                  type: "Completed",
+                  value: parseInt(completedTaskCount),
+                  color: "#E38627",
+                },
+                {
+                  type: "Incompleted",
+                  value: tasks.length,
+                  color: "#C13C37",
+                },
+              ]}
+            />
+          </div>
+          <div className="toolbar_container">
+            <h3 className="task-heading" style={{ fontSize: "20px" }}>
+              Tasks
+            </h3>
+            <div className="detail">
+              <InputGroup>
                 <InputGroup.Text>
                   <FontAwesomeIcon icon={faMagnifyingGlass} />
                 </InputGroup.Text>
@@ -122,20 +116,15 @@ const Dashboard = () => {
                   onKeyDown={searchHandler}
                 />
               </InputGroup>
-            </Col>
-            <Col
-              md={3}
-              style={{ width: "250px", padding: 0, marginLeft: "auto" }}
-            >
-              <NewTask />
-              <Button variant="link" onClick={handleClearSearch}>
-                Clear Search
-              </Button>
-            </Col>
-          </Row>
-          <Row>
-            <TaskList tasks={tasks} />
-          </Row>
+              <div className="btn_box">
+                <NewTask />
+                <Button variant="link" onClick={handleClearSearch}>
+                  Clear Search
+                </Button>
+              </div>
+            </div>
+          </div>
+          <TaskList tasks={tasks} />
         </Container>
       )}
     </>
