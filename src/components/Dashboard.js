@@ -16,6 +16,7 @@ const Dashboard = () => {
   const { tasks, setTasks } = useContext(TaskContext);
   const searchRef = useRef();
   const [completedTaskCount, setCompletedTaskCount] = useState(0);
+  const [searchTaskList, setSearchTaskList] = useState();
 
   useEffect(() => {
     getAllTasks((tasks, msg) => {
@@ -37,25 +38,34 @@ const Dashboard = () => {
   const searchHandler = (event) => {
     if (event.key === "Enter") {
       searchTask(event.target.value, (tasks, msg) => {
-        setTasks(tasks);
+        // setTasks(tasks);
+        setSearchTaskList(tasks);
       });
     }
   };
 
   const handleClearSearch = () => {
-    getAllTasks((tasks, msg) => {
-      setTasks(tasks);
-    });
+    // getAllTasks((tasks, msg) => {
+    //   setTasks(tasks);
+    // });
+    setSearchTaskList(null);
     searchRef.current.value = "";
+  };
+
+  const resetSearchTaskHandler = () => {
+    if (searchTaskList) {
+      searchTask(searchRef.current.value, (tasks, msg) => {
+        // setTasks(tasks);
+        setSearchTaskList(tasks);
+      });
+    }
   };
 
   if (!tasks.length && !(searchRef.current && searchRef.current.value !== "")) {
     return (
       <>
         <Header />
-        <div
-          className="no_task"
-        >
+        <div className="no_task">
           <div
             style={{
               padding: "20px",
@@ -71,7 +81,6 @@ const Dashboard = () => {
       </>
     );
   }
-
   return (
     <>
       <Header />
@@ -124,7 +133,10 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <TaskList tasks={tasks} />
+          <TaskList
+            tasks={searchTaskList || tasks}
+            resetSearchTask={resetSearchTaskHandler}
+          />
         </Container>
       )}
     </>

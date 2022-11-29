@@ -11,8 +11,8 @@ const TaskChart = ({ completed, total }) => {
       {
         label: "# Count",
         data: [completed, total - completed],
-        backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(54, 162, 235, 0.2)"],
-        borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
+        backgroundColor: ["rgba(82, 133, 236, 1)", "rgba(232, 236, 236, 1)"],
+        borderColor: ["rgba(82, 133, 236, 1)", "rgba(232, 236, 236, 1)"],
         borderWidth: 1,
       },
     ],

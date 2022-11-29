@@ -26,9 +26,3 @@ npm start
 ```
 
 Open [http://localhost:3000](http://localhost:3000) and take a look around.
-
-## Deploy to Heroku
-You can also deploy this app to Heroku:
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-

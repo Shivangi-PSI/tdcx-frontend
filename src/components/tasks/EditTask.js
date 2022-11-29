@@ -6,7 +6,7 @@ import { faPencil} from "@fortawesome/free-solid-svg-icons";
 import { ToastError, ToastSuccess } from "../common/Toaster";
 import TaskModal from "./TaskModal";
 
-const EditTask = ({id, task}) => {
+const EditTask = ({id, task, resetSearchTask}) => {
   const [show, setShow] = useState(false);
 	const {tasks, setTasks} = useContext(TaskContext);
 
@@ -19,6 +19,7 @@ const EditTask = ({id, task}) => {
         const taskIndex = newTasks.findIndex(t => t.id === task.id);
 				newTasks[taskIndex] = task;
         setTasks(newTasks);
+        resetSearchTask();
         ToastSuccess("Task is updated successfully");
       } else{
         ToastError("Something went wrong!");

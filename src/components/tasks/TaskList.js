@@ -7,7 +7,7 @@ import TaskContext from "../../hooks/TaskContext";
 import { ToastError, ToastSuccess } from "../common/Toaster";
 import { useContext, useRef } from "react";
 
-const Task = ({ task, taskId }) => {
+const Task = ({ task, taskId, resetSearchTask }) => {
   const { tasks, setTasks } = useContext(TaskContext);
   const completeRef = useRef(task.isCompleted);
 
@@ -19,6 +19,7 @@ const Task = ({ task, taskId }) => {
         if (taskIndex > -1) {
           newTasks.splice(taskIndex, 1);
         }
+        resetSearchTask();
         setTasks(newTasks);
         ToastSuccess("Task is deleted successfully");
       } else {
@@ -34,6 +35,7 @@ const Task = ({ task, taskId }) => {
         const newTasks = [...tasks];
         const taskIndex = newTasks.findIndex((t) => t.id === task.id);
         newTasks[taskIndex] = task;
+        resetSearchTask();
         setTasks(newTasks);
       }
     });
@@ -63,20 +65,20 @@ const Task = ({ task, taskId }) => {
         {task.name}
       </span>
 
-      <EditTask id={taskId} task={task} />
+      <EditTask id={taskId} task={task} resetSearchTask={resetSearchTask}/>
       <div className="vr" style={{ margin: "0 10px" }} />
       <FontAwesomeIcon icon={faTrash} onClick={taskDeleteHandler} />
     </Stack>
   );
 };
 
-const TaskList = ({ tasks }) => {
+const TaskList = ({ tasks, resetSearchTask }) => {
   return (
     <div className="task-list">
       <Form>
         {tasks.length ? (
           tasks.map((task) => (
-            <Task key={task.id} task={task} taskId={task.id} />
+            <Task key={task.id} task={task} taskId={task.id} resetSearchTask={resetSearchTask}/>
           ))
         ) : (
           <p>No task available</p>
