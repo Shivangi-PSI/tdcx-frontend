@@ -15,7 +15,7 @@ const CompletedTask = ({completed, total}) => {
   //   }
   // }, [tasks]);
   return (
-    <Card style={{ width: "18rem" }}>
+    <Card className="task-card">
       <Card.Body>
         <Card.Title>Task Completed</Card.Title>
         <Card.Text>{completed}/{total}</Card.Text>

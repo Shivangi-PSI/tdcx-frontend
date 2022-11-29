@@ -2,7 +2,7 @@ import Card from "react-bootstrap/Card";
 
 const LatestTask = ({ tasks }) => {
   return (
-    <Card style={{ width: "18rem" }}>
+    <Card className="task-card" >
       <Card.Body>
         <Card.Title>Latest Created Tasks</Card.Title>
         <ul>
@@ -10,6 +10,7 @@ const LatestTask = ({ tasks }) => {
             <li
               style={{
                 textDecoration: task.isCompleted ? "line-through" : "none",
+								color: "grey"
               }}
 							key={task.id}
             >

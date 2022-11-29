@@ -13,6 +13,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import CompletedTask from "./tasks/cards/CompletedTask";
 import TaskChart from "./tasks/cards/TaskChart";
 import LatestTask from "./tasks/cards/LatestTask";
+import './Dashboard.scss';
 
 const Dashboard = () => {
   const { tasks, setTasks } = useContext(TaskContext);
@@ -73,7 +74,7 @@ const Dashboard = () => {
     <>
       <Header />
       {tasks && (
-        <Container fluid style={{ padding: "0.5rem 2rem" }}>
+        <Container fluid style={{ padding: "0.5rem 6rem" }}>
           <Row>
             <Col xs={4} md={4}>
               <CompletedTask
@@ -82,7 +83,7 @@ const Dashboard = () => {
               />
             </Col>
             <Col xs={4} md={4}>
-              <LatestTask tasks={tasks.slice(0,3)} />
+              <LatestTask tasks={tasks.slice(0, 3)} />
             </Col>
             <Col xs={4} md={4}>
               <TaskChart
@@ -103,11 +104,13 @@ const Dashboard = () => {
               />
             </Col>
           </Row>
-          <Row>
-            <Col xs={4} md={3}>
-              <h3 style={{ fontSize: "20px" }}>Tasks</h3>
+          <Row className="container-row">
+            <Col xs={6} md={5}>
+              <h3 className="task-heading" style={{ fontSize: "20px" }}>
+                Tasks
+              </h3>
             </Col>
-            <Col xs={8} md={5}>
+            <Col xs={6} md={4}>
               <InputGroup className="mb-3">
                 <InputGroup.Text>
                   <FontAwesomeIcon icon={faMagnifyingGlass} />
@@ -121,7 +124,7 @@ const Dashboard = () => {
               </InputGroup>
             </Col>
             <Col
-              md={4}
+              md={3}
               style={{ width: "250px", padding: 0, marginLeft: "auto" }}
             >
               <NewTask />
@@ -130,9 +133,11 @@ const Dashboard = () => {
               </Button>
             </Col>
           </Row>
+          <Row>
+            <TaskList tasks={tasks} />
+          </Row>
         </Container>
       )}
-      <TaskList tasks={tasks} />
     </>
   );
 };

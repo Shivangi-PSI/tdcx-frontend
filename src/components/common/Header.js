@@ -16,13 +16,12 @@ const Header = () => {
     navigate("/login");
   };
   return (
-    <Navbar bg="light" variant="light" style={{marginBottom: '20px'}}>
+    <Navbar className="header">
       <Container>
-        <Navbar.Brand href="#home">
+        <Navbar.Text >
           <img src={Profile} width="30" height="30"/>
-        </Navbar.Brand>
-        <Navbar.Brand href="#home">{user ? user.name : ""}</Navbar.Brand>
-        <Navbar.Toggle />
+        </Navbar.Text>
+        <Navbar.Text className="header-username" >{user ? user.name : ""}</Navbar.Text>
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
             <Button onClick={signOutHandler} variant="link">Logout</Button>

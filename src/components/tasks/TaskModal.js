@@ -24,7 +24,7 @@ const TaskModal = ({title, name, buttonText, show, handleClose, onSubmit}) => {
 
   return (
     <>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>

@@ -15,9 +15,9 @@ const Task = ({ task, taskId }) => {
     deleteTask(taskId, (res, msg) => {
       if (res) {
         const newTasks = [...tasks];
-        const taskIndex = newTasks.findIndex(t => t.id === taskId);
-        if (taskIndex > -1) { 
-          newTasks.splice(taskIndex, 1); 
+        const taskIndex = newTasks.findIndex((t) => t.id === taskId);
+        if (taskIndex > -1) {
+          newTasks.splice(taskIndex, 1);
         }
         setTasks(newTasks);
         ToastSuccess("Task is deleted successfully");
@@ -31,9 +31,9 @@ const Task = ({ task, taskId }) => {
     const data = { isCompleted: completeRef.current.checked };
     updateTask(data, taskId, (task, msg) => {
       if (task) {
-        const newTasks = [...tasks]
-        const taskIndex = newTasks.findIndex(t => t.id === task.id);
-				newTasks[taskIndex] = task;
+        const newTasks = [...tasks];
+        const taskIndex = newTasks.findIndex((t) => t.id === task.id);
+        newTasks[taskIndex] = task;
         setTasks(newTasks);
       }
     });
@@ -57,6 +57,7 @@ const Task = ({ task, taskId }) => {
         style={{
           textDecoration: task.isCompleted ? "line-through" : "none",
           marginLeft: "10px",
+          color : task.isCompleted ? "grey" : "blue"
         }}
       >
         {task.name}
@@ -71,14 +72,7 @@ const Task = ({ task, taskId }) => {
 
 const TaskList = ({ tasks }) => {
   return (
-    <Container
-      style={{
-        padding: "2rem",
-        background: "whitesmoke",
-        border: "solid 1px whitesmoke",
-        borderRadius: "10px",
-      }}
-    >
+    <div className="task-list">
       <Form>
         {tasks.length ? (
           tasks.map((task) => (
@@ -88,7 +82,7 @@ const TaskList = ({ tasks }) => {
           <p>No task available</p>
         )}
       </Form>
-    </Container>
+    </div>
   );
 };
 export default TaskList;

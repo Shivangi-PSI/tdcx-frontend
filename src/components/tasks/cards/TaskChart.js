@@ -3,7 +3,7 @@ import Card from "react-bootstrap/Card";
 import TaskContext from "../../../hooks/TaskContext";
 import { PieChart } from "react-minimal-pie-chart";
 import CanvasJSReact from "./canvasjs.react";
-// var CanvasJS = CanvasJSReact.CanvasJS;
+var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const TaskChart = ({ completed, total }) => {
@@ -13,7 +13,7 @@ const TaskChart = ({ completed, total }) => {
         type: "pie",
         startAngle: 75,
         toolTipContent: "<b>{label}</b>: {y}%",
-        showInLegend: "true",
+        // showInLegend: "true",
         legendText: "{label}",
         indexLabelFontSize: 8,
         indexLabel: "{label} - {y}%",
@@ -30,15 +30,14 @@ const TaskChart = ({ completed, total }) => {
   };
 
   return (
-    <Card style={{ width: "18rem" }}>
+    <Card className="task-card">
       <Card.Body>
         {/* <Card.Title>LatestTask</Card.Title> */}
         {/* <Card.Text> */}
         <div style={{ height: "100px", width: "200px" }}>
-          <CanvasJSChart
+          {/* <CanvasJSChart
             options={options}
-            /* onRef={ref => this.chart = ref} */
-          />
+          /> */}
         </div>
         {/* </Card.Text> */}
       </Card.Body>

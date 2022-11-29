@@ -9,6 +9,8 @@ import { fetchUser } from "./actions/auth";
 import UserContext from "./hooks/UserContext";
 import AuthVerify from "./utils/auth-verify";
 import Toaster from "./components/common/Toaster";
+import './assets/styles/index.css';
+
 const App = () => {
   const { setUser, user } = useContext(UserContext);
   const navigator = useNavigate();
@@ -29,7 +31,7 @@ const App = () => {
 
   return (
     <>
-      <div>
+      <div style={{backgroundColor: "whitesmoke", minHeight: "100vh"}}>
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route exact path="/" element={<ProtectedRoutes />}>
