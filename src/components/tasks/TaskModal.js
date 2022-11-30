@@ -1,26 +1,32 @@
 import React, { useRef, useState } from "react";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import Modal from "react-bootstrap/Modal";
+import {Form, Modal} from "react-bootstrap";
+import CustomButton from "../common/CustomButton";
 
-const TaskModal = ({title, name, buttonText, show, handleClose, onSubmit}) => {
+const TaskModal = ({
+  title,
+  name,
+  buttonText,
+  show,
+  handleClose,
+  onSubmit,
+}) => {
   const nameRef = useRef();
   const [error, setError] = useState();
 
   const handleSave = () => {
     const data = { name: nameRef.current.value };
-    if(nameRef.current.value === ''){
-      setError({name: "can't be blank"})
-    }else{
+    if (nameRef.current.value === "") {
+      setError({ name: "can't be blank" });
+    } else {
       onSubmit(data);
     }
   };
 
   const handleError = () => {
-    if(error && error.name && nameRef.current.value != ''){
-      setError(null)
+    if (error && error.name && nameRef.current.value != "") {
+      setError(null);
     }
-  }
+  };
 
   return (
     <>
@@ -44,12 +50,16 @@ const TaskModal = ({title, name, buttonText, show, handleClose, onSubmit}) => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleSave}>
-            {buttonText}
-          </Button>
+          <CustomButton
+            variant="secondary"
+            onClick={handleClose}
+            name="Close"
+          />
+          <CustomButton
+            variant="primary"
+            onClick={handleSave}
+            name={buttonText}
+          />
         </Modal.Footer>
       </Modal>
     </>

@@ -1,13 +1,11 @@
-import axios from "axios";
-import { ROOT_URL } from "../utils/constant";
-import { apiHeaders } from "../utils/helper";
+import AxiosInstance from "../utils/axios-instance";
 
 export const getAllTasks = async (callback) => {
   try {
-    const response = await axios.get(`${ROOT_URL}/tasks`, {
-      mode: "cors",
-      headers: apiHeaders(),
-    });
+    const response = await AxiosInstance({
+      url: "tasks",
+      method: "GET",
+    })
     callback(response.data.tasks);
   } catch (error) {
     const msg = error.response ? error.response.data.error : error.message;
@@ -17,11 +15,12 @@ export const getAllTasks = async (callback) => {
 
 export const createTask = async (data, callback) => {
   try {
-    const response = await axios.post(`${ROOT_URL}/tasks`, data, {
-      mode: "cors",
-      headers: apiHeaders(),
-    });
-    callback(response.data.task);
+    const response = await AxiosInstance({
+      url: "tasks",
+      method: "POST",
+      data: data
+    })
+    callback(response.data.task, response.data.msg);
   } catch (error) {
     const msg = error.response ? error.response.data.error : error.message;
     callback(null, msg);
@@ -30,11 +29,12 @@ export const createTask = async (data, callback) => {
 
 export const updateTask = async (data, id, callback) => {
   try {
-    const response = await axios.patch(`${ROOT_URL}/tasks?id=${id}`, data, {
-      mode: "cors",
-      headers: apiHeaders(),
-    });
-    callback(response.data.task);
+    const response = await AxiosInstance({
+      url: `tasks?id=${id}`,
+      method: "PATCH",
+      data: data
+    })
+    callback(response.data.task, response.data.msg);
   } catch (error) {
     const msg = error.response ? error.response.data.error : error.message;
     callback(null, msg);
@@ -43,11 +43,11 @@ export const updateTask = async (data, id, callback) => {
 
 export const deleteTask = async (id, callback) => {
   try {
-    const response = await axios.delete(`${ROOT_URL}/tasks?id=${id}`, {
-      mode: "cors",
-      headers: apiHeaders(),
-    });
-    callback(response.data);
+    const response = await AxiosInstance({
+      url: `tasks?id=${id}`,
+      method: "DELETE"
+    })
+    callback(response.data, response.data.msg);
   } catch (error) {
     const msg = error.response ? error.response.data.error : error.message;
     callback(null, msg);
@@ -56,10 +56,10 @@ export const deleteTask = async (id, callback) => {
 
 export const searchTask = async (name,callback) => {
   try {
-    const response = await axios.get(`${ROOT_URL}/search?name=${name}`, {
-      mode: "cors",
-      headers: apiHeaders(),
-    });
+    const response = await AxiosInstance({
+      url: `search?name=${name}`,
+      method: "GET",
+    })
     callback(response.data.tasks);
   } catch (error) {
     const msg = error.response ? error.response.data.error : error.message;

@@ -48,3 +48,10 @@
   border: 1px solid whitesmoke;
   border-radius: 12px;
 }
+
+.profile-img {
+  top: 12px;
+  left: 123px;
+  width: 48px;
+  height: 48px;
+}

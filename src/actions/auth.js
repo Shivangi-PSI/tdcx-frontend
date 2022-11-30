@@ -1,12 +1,12 @@
-import axios from "axios";
-import { ROOT_URL } from "../utils/constant";
-import { apiHeaders } from "../utils/helper";
+import AxiosInstance from "../utils/axios-instance";
 
 export const loginUser = async (data, callback) => {
   try {
-    const response = await axios.post(`${ROOT_URL}/login`, data, {
-      mode: "cors",
-    });
+    const response = await AxiosInstance({
+      url: "login",
+      method: "POST",
+      data: data
+    })
     localStorage.setItem("token", response.data.user.token);
     callback(response.data.user, response.data.msg);
   } catch (error) {
@@ -17,10 +17,10 @@ export const loginUser = async (data, callback) => {
 
 export const fetchUser = async (callback) => {
   try {
-    const response = await axios.get(`${ROOT_URL}/current-user`, {
-      mode: "cors",
-      headers: apiHeaders(),
-    });
+    const response = await AxiosInstance({
+      url: "current-user",
+      method: "GET"
+    })
     callback(response.data.user);
   } catch (error) {
     const msg = error.response ? error.response.data.error : error.message;

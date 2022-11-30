@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { Form, Button, InputGroup, Container } from "react-bootstrap";
+import { Form, InputGroup, Container } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { getAllTasks, searchTask } from "../actions/task";
@@ -11,6 +11,7 @@ import CompletedTask from "./tasks/cards/CompletedTask";
 import TaskChart from "./tasks/cards/TaskChart";
 import LatestTask from "./tasks/cards/LatestTask";
 import "./Dashboard.scss";
+import CustomButton from "./common/CustomButton";
 
 const Dashboard = () => {
   const { tasks, setTasks } = useContext(TaskContext);
@@ -38,16 +39,12 @@ const Dashboard = () => {
   const searchHandler = (event) => {
     if (event.key === "Enter") {
       searchTask(event.target.value, (tasks, msg) => {
-        // setTasks(tasks);
         setSearchTaskList(tasks);
       });
     }
   };
 
   const handleClearSearch = () => {
-    // getAllTasks((tasks, msg) => {
-    //   setTasks(tasks);
-    // });
     setSearchTaskList(null);
     searchRef.current.value = "";
   };
@@ -55,7 +52,6 @@ const Dashboard = () => {
   const resetSearchTaskHandler = () => {
     if (searchTaskList) {
       searchTask(searchRef.current.value, (tasks, msg) => {
-        // setTasks(tasks);
         setSearchTaskList(tasks);
       });
     }
@@ -127,9 +123,11 @@ const Dashboard = () => {
               </InputGroup>
               <div className="btn_box">
                 <NewTask />
-                <Button variant="link" onClick={handleClearSearch}>
-                  Clear Search
-                </Button>
+                <CustomButton
+                  variant="link"
+                  onClick={handleClearSearch}
+                  name={'Clear Search'}
+                />
               </div>
             </div>
           </div>

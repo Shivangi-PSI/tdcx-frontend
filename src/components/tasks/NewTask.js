@@ -1,7 +1,7 @@
 import React, { useContext, useRef, useState } from "react";
-import Button from "react-bootstrap/Button";
 import { createTask } from "../../actions/task";
 import TaskContext from "../../hooks/TaskContext";
+import CustomButton from "../common/CustomButton";
 import { ToastError, ToastSuccess } from "../common/Toaster";
 import TaskModal from "./TaskModal";
 
@@ -15,18 +15,16 @@ const NewTask = () => {
     createTask(data, (task, msg) => {
       if (task) {
         setTasks( [task, ...tasks]);
-        ToastSuccess("Task is created successfully");
+        ToastSuccess(msg);
       } else{
-        ToastError("Something went wrong!");
+        ToastError(msg);
       }
 			handleClose();
     });
   };
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
-        + New Task
-      </Button>
+      <CustomButton variant="primary" onClick={handleShow} name="+ New Task"/>
 			<TaskModal show={show} handleClose={handleClose} title='+ New Task' buttonText='Add' onSubmit={(data) => handleSave(data)}/>
     </>
   );

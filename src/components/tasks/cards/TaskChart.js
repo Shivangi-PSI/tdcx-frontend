@@ -1,6 +1,6 @@
-import Card from "react-bootstrap/Card";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
+import CustomCard from "../../common/CustomCard";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -20,18 +20,14 @@ const TaskChart = ({ completed, total }) => {
 
   const options = {
     maintainAspectRatio: false,
-    responsive: true, 
+    responsive: true,
   };
-
-  return (
-    <Card className="task-card">
-      <Card.Body>
-        <div >
-          <Pie data={data} options={options}  height={'115px'} />
-        </div>
-      </Card.Body>
-    </Card>
+  const content = (
+    <div>
+      <Pie data={data} options={options} height={"115px"} />
+    </div>
   );
+  return <CustomCard body={content} />;
 };
 
 export default TaskChart;

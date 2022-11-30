@@ -20,9 +20,9 @@ const EditTask = ({id, task, resetSearchTask}) => {
 				newTasks[taskIndex] = task;
         setTasks(newTasks);
         resetSearchTask();
-        ToastSuccess("Task is updated successfully");
+        ToastSuccess(msg);
       } else{
-        ToastError("Something went wrong!");
+        ToastError(msg);
       }
 			handleClose();
     });

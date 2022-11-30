@@ -21,9 +21,9 @@ const Task = ({ task, taskId, resetSearchTask }) => {
         }
         resetSearchTask();
         setTasks(newTasks);
-        ToastSuccess("Task is deleted successfully");
+        ToastSuccess(msg);
       } else {
-        ToastError("Something went wrong!");
+        ToastError(msg);
       }
     });
   };

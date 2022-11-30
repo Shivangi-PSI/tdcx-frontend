@@ -25,4 +25,11 @@ npm install
 npm start
 ```
 
+## Login Credentials
+
+```bash
+Username: admin
+Password: tdcx@123
+```
+
 Open [http://localhost:3000](http://localhost:3000) and take a look around.

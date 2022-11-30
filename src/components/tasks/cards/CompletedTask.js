@@ -1,15 +1,9 @@
-import Card from "react-bootstrap/Card";
+import CustomCard from "../../common/CustomCard";
 
 const CompletedTask = ({ completed, total }) => {
+  const text = <><span className="completed_text">{completed}</span>/{total}</>
   return (
-    <Card className="task-card">
-      <Card.Body>
-        <Card.Title>Task Completed</Card.Title>
-        <Card.Text style={{ fontSize: "20px" }}>
-          <span className="completed_text">{completed}</span>/{total}
-        </Card.Text>
-      </Card.Body>
-    </Card>
+    <CustomCard title={'Task Completed'} text={text} textStyle={{ fontSize: "20px" }}/>
   );
 };
 
